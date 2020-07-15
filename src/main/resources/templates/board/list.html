@@ -2,18 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>SpringBootBoard</title>
+    <link rel="shortcut icon" th:href="@{/images/spring_boot.ico}"/>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/base.css}"/>
 </head>
 <body>
-<!--<div th:replace="layout/header::header"></div>-->
+<div th:replace="layout/header::header"></div>
 <div class="container">
     <div class="page-header">
         <h1>게시글 목록</h1>
     </div>
     <div class="pull-right" style="width:100px; margin:10px 0;">
-        <a href="/board" class="btn btn-primary btn-block">등록</a>
+        <a href="/board/" class="btn btn-primary btn-block">등록</a>
     </div>
     <br/><br/><br/>
     <div id="mainHide">
@@ -28,7 +29,7 @@
         <tr th:each="board : ${boardList}">
             <td th:text="${board.idx}"></td>
             <td th:text="${board.boardType.value}"></td>
-            <td th:text="${board.title}"></td>
+            <td><a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
             <td th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
             <td th:text="${#temporals.format(board.updatedDate, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>
@@ -54,6 +55,6 @@
     </ul>
 </nav>
 
-<!--<div th:replace="layout/footer::footer"></div>-->
+<div th:replace="layout/footer::footer"></div>
 </body>
 </html>
