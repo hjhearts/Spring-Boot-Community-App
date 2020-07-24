@@ -32,4 +32,5 @@ public class BoardController {
         model.addAttribute("boardList", boardService.findBoardList(pageable));
         return "board/list";
     }
+
 }
