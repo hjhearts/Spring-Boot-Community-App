@@ -3,6 +3,7 @@ package com.web;
 import com.web.domain.Board;
 import com.web.domain.User;
 import com.web.domain.enums.BoardType;
+import com.web.domain.enums.SocialType;
 import com.web.repository.BoardRepository;
 import com.web.repository.UserRepository;
 import com.web.resolver.UserArgumentResolver;
@@ -45,16 +46,19 @@ public class WebApplication extends WebMvcConfigurerAdapter {
                     .name("havi")
                     .password("test")
                     .email("havi@gmail.com")
+                    .principal("kakao")
+                    .socialType(SocialType.KAKAO)
                     .createdDate(LocalDateTime.now())
+                    .updatedDate(LocalDateTime.now())
                     .build()
             );
 
             IntStream.rangeClosed(1, 200).forEach(index -> {
                 boardRepository.save(
                         Board.builder()
-                        .title("게시글" + index)
-                        .subTitle("순서" + index)
-                        .content("콘텐츠")
+                        .title("title" + index)
+                        .subTitle("order" + index)
+                        .content("content")
                         .boardType(BoardType.FREE)
                         .createdDate(LocalDateTime.now())
                         .updatedDate(LocalDateTime.now())

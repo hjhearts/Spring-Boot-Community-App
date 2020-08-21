@@ -1,6 +1,7 @@
 package com.web.domain;
 
 import com.web.domain.enums.BoardType;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table
 public class Board implements Serializable {
@@ -31,7 +33,7 @@ public class Board implements Serializable {
     private LocalDateTime createdDate;
     @Column
     private LocalDateTime updatedDate;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private User user;
 
     @Builder

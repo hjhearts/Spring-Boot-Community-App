@@ -14,6 +14,7 @@
     </div>
     <br/>
     <input id="board_idx" type="hidden" th:value="${board?.idx}"/>
+    <input id="board_create_date" type="hidden" th:value="${board?.createdDate}"/>
     <table class="table">
         <tr>
             <th style="padding: 13px 0 0 15px">게시판 선택</th>
@@ -64,5 +65,68 @@
     </div>
 </div>
 <div th:replace="layout/footer::footer"></div>
+<script th:src="@{js/jquery.min.js}"></script>
+
+<script th:if="!${board?.idx}">
+    $('#insert').click(function () {
+        var jsonData = JSON.stringify({
+            title: $('#board_title').val(),
+            subTitle: $('#board_sub_title').val(),
+            content: $('#board_content').val(),
+            boardType: $('#board_type option:selected').val()
+        });
+        $.ajax({
+            url: 'http://localhost:8081/api/boards',
+            type: 'POST',
+            data: jsonData,
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function(){
+                alert('Save Success');
+                location.href = '/board/list'
+            },
+            error: function(){
+                alert('Save Failure');
+            }
+        });
+    });
+</script>
+<script th:if="${board?.idx}">
+    $('#update').click(function() {
+        var jsonData = JSON.stringify({
+            title: $('#board_title').val(),
+            subTitle: $('#board_sub_title').val(),
+            content: $('#board_content').val(),
+            boardType: $('#board_type option:selected').val()
+        });
+        $.ajax({
+            url: 'http://localhost:8081/api/boards/' + $('#board_idx').val(),
+            type: 'PUT',
+            data: jsonData,
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function(){
+                alert('Update Success');
+                location.href = '/board/list';
+            },
+            error: function(){
+                alert('Update Failure');
+            }
+        });
+    });
+    $('#delete').click(function () {
+        $.ajax({
+            url: 'http://localhost:8081/api/boards/' + $('#board_idx').val(),
+            type: 'DELETE',
+            success: function(){
+                alert('Delete Success');
+                location.href = '/board/list'
+            },
+            error: function(){
+                alert('Delete Failure');
+            }
+        });
+    });
+</script>
 </body>
 </html>
