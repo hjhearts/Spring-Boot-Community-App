@@ -80,6 +80,9 @@
             type: 'POST',
             data: jsonData,
             contentType: 'application/json',
+            headers: {
+                "Authorization": "Basic " + btoa("havi" + ":" + "test")
+            },
             dataType: 'json',
             success: function(){
                 alert('Save Success');
